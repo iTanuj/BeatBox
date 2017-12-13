@@ -1,10 +1,29 @@
-body {
-    background: #e0f7fa;
+.container {
+	width: 95vw;
 }
-.navbar{
-    border-radius: 0px;
+input[type="search"] {
+height: 62px !important; /* or height of nav */
 }
-.navbar-brand{
-    font-family: 'Kumar One Outline', cursive;
-    font-size: x-large;
+nav .input-field label{
+	top: -12px;
+}
+.gradient{
+	background: linear-gradient(45deg, #8e24aa 0%, #ff6e40 100%);
+}
+.back-img {
+	/*background-image: url('back.png');*/
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-size: cover;
+    background-image: repeating-linear-gradient(90deg, #682483, #824126);
+    background-attachment: fixed;
+}
+.brand-logo{
+    font-family: 'Ribeye Marrow', cursive;
+}
+#detail-row{
+    margin-top: 3px;
+}
+#about-album{
+    margin-top: 7px;
 }

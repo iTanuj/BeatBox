@@ -1,0 +1,15 @@
+{% for field in form %}
+    <div class="row">
+        {% if field.errors %}
+            {% for error in field.errors %}
+            <div class="red-text col offset-s3 offset-m4 offset-l4">
+                <strong>{{ error }}</strong>
+            </div>
+            {% endfor %}
+        {% endif %}
+        <div class="input-field col s12">
+            {{ field }}
+            {{ field.label_tag }}
+        </div>
+    </div>
+{% endfor %}

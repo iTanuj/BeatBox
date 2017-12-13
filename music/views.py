@@ -1,28 +1,32 @@
-from django.shortcuts import render, get_object_or_404
+from django.views import generic
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Album
+from django.core.urlresolvers import reverse_lazy
 
 
-def index(request):
-    albums = Album.objects.all()
-    return render(request, 'music/index.html', {'albums': albums})
+class IndexView(generic.ListView):
+    template_name = 'music/index.html'
+    context_object_name = 'albums'
+
+    def get_queryset(self):
+        return Album.objects.all()
 
 
-def detail(request, album_id):
-    # album = Album.objects.get(id=album_id)
-    album = get_object_or_404(Album, id=album_id)
-    return render(request, 'music/detail.html', {'album': album})
+class DetailView(generic.DetailView):
+    model = Album
+    template_name = 'music/detail.html'
 
 
-def favourite(request, album_id):
-    album = get_object_or_404(Album, id=album_id)
-    try:
-        selected_song = album.song_set.get(id=request.POST['song'])
-    except:
-        return render(request, 'music/detail.html', {
-            'album': album,
-            'error_message': 'You did not select a valid song'
-        })
-    else:
-        selected_song.is_favourite = True
-        selected_song.save()
-        return render(request, 'music/detail.html', {'album': album})
+class AlbumCreate(CreateView):
+    model = Album
+    fields = ['album_title', 'artist', 'genre', 'album_logo']
+
+
+class AlbumUpdate(UpdateView):
+    model = Album
+    fields = ['album_title', 'artist', 'genre', 'album_logo']
+
+
+class AlbumDelete(DeleteView):
+    model = Album
+    success_url = reverse_lazy('music:index')
